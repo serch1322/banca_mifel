@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <record id="crm_inherit" model="ir.ui.view">
+        <field name="name">crm.inherit</field>
+        <field name="model">crm</field>
+        <field name="inherit_id" ref="crm.crm_lead_view_form" />
+        <field name="arch" type="xml">
+            <field name="tag_ids" position="after">
+                <field name="subcatalog"/>
+            </field>
+        </field>
+    </record>
+</odoo>
