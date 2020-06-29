@@ -15,7 +15,7 @@
         Hola <strong>${object.user_id}</strong>,
         <br></br>
         Este es un mensaje para recordarte que tu lead <strong>${object.name}</strong>, lleva más de 3 días en estatus pendiente en la etapa
-        <strong>${object.state}</strong>, te pedimos que le des seguimiento al mismo de manera inmediata.
+        <strong>${object.state.name}</strong>, te pedimos que le des seguimiento al mismo de manera inmediata.
         <br></br>
         Muchas gracias por tu trabajo.
     </p>
@@ -39,7 +39,7 @@
         Hola <strong>${object.user_id}</strong>,
         <br></br>
         Este es un mensaje para recordarte que tu lead <strong>${object.name}</strong>, lleva más de 14 días en estatus pendiente en la etapa
-        <strong>${object.state}</strong>, te pedimos que le des seguimiento al mismo de manera inmediata.
+        <strong>${object.state.name}</strong>, te pedimos que le des seguimiento al mismo de manera inmediata.
         <br></br>
         Muchas gracias por tu trabajo.
     </p>
