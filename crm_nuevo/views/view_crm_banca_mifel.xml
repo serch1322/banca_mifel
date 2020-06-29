@@ -17,7 +17,7 @@
                 <button name="action_won" string="Aceptado" type="object" class="btn-primary" states="stage_5"/>
                 <button name="action_lost" string="Rechazado" type="object" class="btn-primary" attrs="{'invisible':[('state', '=', 'rejected')]}"/>
             </xpath>
-            <xpath expr="//button[@name='410']" position="attributes">
+            <xpath expr="//button[@name='269']" position="attributes">
                 <attribute name="invisible">1</attribute>
             </xpath>
             <xpath expr="//button[@name='action_set_won_rainbowman']" position="attributes">
