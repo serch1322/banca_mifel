@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+    <data>
+        <!-- Correo para vendendor despues de tres días -->
+        <record id="crm_vendedor_correo_recordatorio" model="mail.template">
+            <field name="name">Recordatorio - Lead CRM</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="subject">${object.name} - Recordatorio</field>
+            <field name="email_from">${(object.user_id.email_formatted) | safe}</field>
+            <field name="email_to">${(object.user_id.email_formatted) | safe}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        % set doc_state = 'Primer Contacto Cliente' if object.state = ('stage_1') else if 'Solicitud de Estados Financieros' if object.state = ('stage_2') else if 'Elaboración de Deal Screen' if object.state = ('stage_3') else if 'Revisión con Dirección' if object.state = ('stage_4') else 'Pre-Comite'
+        Hola <strong>${object.user_id.name}</strong>,
+        <br></br>
+        Este es un mensaje para recordarte que tu lead <strong>${object.name}</strong>, lleva más de 3 días en estatus pendiente en la etapa
+        <strong>${doc_state}</strong>, te pedimos que le des seguimiento al mismo de manera inmediata.
+        <br></br>
+        Muchas gracias por tu trabajo.
+    </p>
+
+</div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+            <field name="user_signature" eval="False"/>
+        </record>
+
+        <!-- Correo para subdirector despues de 14 días -->
+        <record id="crm_vendedor_subdirector_correo_recordatorio" model="mail.template">
+            <field name="name">Recordatorio con Subdirector - Lead CRM</field>
+            <field name="model_id" ref="crm.model_crm_lead"/>
+            <field name="subject">${object.name} - Recordatorio</field>
+            <field name="email_from">${(object.user_id.email_formatted) | safe}</field>
+            <field name="email_to">${(object.user_id.email_formatted) | safe}</field>
+            <field name="body_html" type="html">
+<div style="margin: 0px; padding: 0px;">
+    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+        % set doc_state = 'Primer Contacto Cliente' if object.state = ('stage_1') else if 'Solicitud de Estados Financieros' if object.state = ('stage_2') else if 'Elaboración de Deal Screen' if object.state = ('stage_3') else if 'Revisión con Dirección' if object.state = ('stage_4') else 'Pre-Comite'
+        Hola <strong>${object.user_id.name}</strong>,
+        <br></br>
+        Este es un mensaje para recordarte que tu lead <strong>${object.name}</strong>, lleva más de 14 días en estatus pendiente en la etapa
+        <strong>${object.state}</strong>, te pedimos que le des seguimiento al mismo de manera inmediata.
+        <br></br>
+        Muchas gracias por tu trabajo.
+    </p>
+
+</div>
+            </field>
+            <field name="auto_delete" eval="True"/>
+            <field name="user_signature" eval="False"/>
+        </record>
+    </data>
+</odoo>

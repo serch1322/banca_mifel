@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_crm_nuevo_ejecutivo,Ejecutivo,model_crm_lead,groups_crm_nuevo_ejecutivo,1,1,1,0
+access_crm_nuevo_subdirector,Subdirector,model_crm_lead,groups_crm_nuevo_subdirector,1,1,1,0
+access_crm_nuevo_director,Director,model_crm_lead,groups_crm_nuevo_director,1,1,1,0
+access_crm_nuevo_director_multi,Director Multi,model_crm_lead,groups_crm_nuevo_director_multi,1,1,1,0
+access_crm_nuevo_director_general,Director General,model_crm_lead,groups_crm_nuevo_director_general,1,1,1,0
