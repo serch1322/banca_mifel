@@ -19,7 +19,7 @@ class CrmInherit(models.Model):
     state = fields.Selection([('stage_1', 'Primer Contacto Cliente'),('stage_2','Solicitud de Estados Financieros'), ('stage_3','Elaboración de Deal Screen'),('stage_4','Revisión con Dirección'),('stage_5','Pre-Comite'), ('accepted','Aceptado'), ('rejected','Rechazado')],string="Etapa Producto 1", default='stage_1')
     solicitud_financiera = fields.Binary(string="Solicitud Financiera", attachment=False, store=True)
     deal_screen = fields.Binary(string="Deal Screen", attachment=False, store=True)
-    fecha_actualizada = fields.Datetime(string="Última Actualización", default=fields.Date.today)
+    fecha_actualizada = fields.Date(string="Última Actualización", default=fields.Date.today)
 
     #Actualizar fecha de registro
     @api.onchange('status_etapa1', 'status_etapa2', 'status_etapa3', 'status_etapa4', 'status_etapa5')
