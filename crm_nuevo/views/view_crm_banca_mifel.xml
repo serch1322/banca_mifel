@@ -1,14 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <odoo>
-    <record id="crm_inherit" model="ir.ui.view">
-        <field name="name">crm.inherit</field>
-        <field name="model">crm</field>
+
+    <!-- Form View -->
+    <record id="crm_form_inherit" model="ir.ui.view">
+        <field name="name">crm.form.inherit</field>
+        <field name="model">crm.lead</field>
         <field name="inherit_id" ref="crm.crm_lead_view_form" />
         <field name="arch" type="xml">
+            <!-- Botones -->
+            <xpath expr="//header" position="inside">
+                <button name="action_stage_2" string="Siguiente Etapa" type="object" class="btn-primary" attrs="{'invisible':['|',('status_etapa1', '!=', 'accepted'), ('state', '!=', 'stage_1')]}"/>
+                <button name="action_stage_3" string="Siguiente Etapa" type="object" class="btn-primary" attrs="{'invisible':['|',('status_etapa2', '!=', 'accepted'), ('state', '!=', 'stage_2')]}"/>
+                <button name="action_stage_4" string="Siguiente Etapa" type="object" class="btn-primary" attrs="{'invisible':['|',('status_etapa3', '!=', 'accepted'), ('state', '!=', 'stage_3')]}"/>
+                <button name="action_stage_5" string="Siguiente Etapa" type="object" class="btn-primary" attrs="{'invisible':['|',('status_etapa4', '!=', 'accepted'), ('state', '!=', 'stage_4')]}"/>
+                <button name="action_won" string="Aceptado" type="object" class="btn-primary" states="stage_5"/>
+                <button name="action_lost" string="Rechazado" type="object" class="btn-primary" attrs="{'invisible':[('state', '=', 'rejected')]}"/>
+            </xpath>
+            <xpath expr="//button[@name='410']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <xpath expr="//button[@name='action_set_won_rainbowman']" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </xpath>
+            <!-- Campos -->
             <field name="tag_ids" position="after">
+                <field name="origen_prospecto"/>
                 <field name="subcatalog"/>
             </field>
+            <field name="date_deadline" position="before">
+                <field name="fecha_actualizada"/>
+            </field>
+            <field name="company_id" position="after">
+                <field name="status_etapa1" attrs="{'invisible':[('state', '!=', 'stage_1')]}" />
+                <field name="status_etapa2" attrs="{'invisible':[('state', '!=', 'stage_2')]}" />
+                <field name="status_etapa3" attrs="{'invisible':[('state', '!=', 'stage_3')]}" />
+                <field name="status_etapa4" attrs="{'invisible':[('state', '!=', 'stage_4')]}" />
+                <field name="status_etapa5" attrs="{'invisible':[('state', '!=', 'stage_5')]}" />
+            </field>
+            <field name="team_id" position="after">
+                <field name="solicitud_financiera" attrs="{'invisible':[('state', '=', 'stage_1')], 'required':[('state', '=', 'stage_2')], 'readonly':[('state','!=','stage_2')]}"/>
+            </field>
+            <field name="solicitud_financiera" position="after">
+                <field name="deal_screen" attrs="{'invisible':[('state', 'in', ('stage_1','stage_2'))], 'required':[('state', '=', 'stage_3')], 'readonly':[('state','!=','stage_3')]}"/>
+            </field>
+            <field name="stage_id" position="replace">
+                <field name="state" widget="statusbar"/>
+            </field>
         </field>
+    </record>
+
+    <!-- Tree View -->
+    <record id="crm_tree_inherit" model="ir.ui.view">
+        <field name="name">crm.tree.inherit</field>
+        <field name="model">crm.lead</field>
+        <field name="inherit_id" ref="crm.crm_case_tree_view_oppor" />
+        <field name="arch" type="xml">
+            <field name="country_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="stage_id" position="replace">
+                <field name="state"/>
+            </field>
+            <field name="partner_id" position="before">
+                <field name="subcatalog"/>
+                <field name="origen_prospecto"/>
+                <field name="user_id"/>
+            </field>
+        </field>
+    </record>
+
+    <!-- Cambiar Ventana a Tree y Quitar Kanban -->
+    <record id="crm.crm_lead_action_pipeline" model="ir.actions.act_window">
+        <field name="view_mode">tree,graph,pivot,form,calendar,activity</field>
+    </record>
+
+    <record id="crm.crm_lead_action_pipeline_view_kanban" model="ir.actions.act_window.view">
+        <field name="sequence" eval="6"/>
+    </record>
+
+    <record id="crm.crm_lead_action_pipeline_view_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="0"/>
     </record>
 </odoo>

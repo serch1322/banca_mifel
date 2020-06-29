@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="category_crm_nuevo" model="ir.module.category">
+        <field name="name">CRM BANCA MIFEL</field>
+    </record>
+
+    <record id="groups_crm_nuevo_ejecutivo" model="res.groups">
+        <field name="name">Ejecutivo</field>
+        <field name="category_id" ref="category_crm_nuevo"/>
+        <field name="implied_ids" eval="[ ( 4, ref('sales_team.group_sale_salesman') )  ]"/>
+    </record>
+
+    <record id="groups_crm_nuevo_subdirector" model="res.groups">
+        <field name="name">Subdirector de Sucursal</field>
+        <field name="category_id" ref="category_crm_nuevo"/>
+        <field name="implied_ids" eval="[ ( 4, ref('groups_crm_nuevo_ejecutivo') ),(4, ref('sales_team.group_sale_salesman_all_leads'))]"/> <!-- implied_ids: permite heredar los permisos de usuario 4:Escritura -->
+    </record>
+
+    <record id="groups_crm_nuevo_director" model="res.groups">
+        <field name="name">Director de Sucursal</field>
+        <field name="category_id" ref="category_crm_nuevo"/>
+        <field name="implied_ids" eval="[ ( 4, ref('groups_crm_nuevo_ejecutivo') ),( 4, ref('groups_crm_nuevo_subdirector')),(4, ref('sales_team.group_sale_salesman_all_leads'))]"/>
+    </record>
+
+    <record id="groups_crm_nuevo_director_multi" model="res.groups">
+        <field name="name">Director Ejecutivo de la Red de Sucursales</field>
+        <field name="category_id" ref="category_crm_nuevo"/>
+        <field name="implied_ids" eval="[ ( 4, ref('groups_crm_nuevo_subdirector')),( 4, ref('groups_crm_nuevo_ejecutivo') ),( 4, ref('groups_crm_nuevo_director') ),(4, ref('sales_team.group_sale_manager'))]"/>
+    </record>
+
+    <record id="groups_crm_nuevo_director_general" model="res.groups">
+        <field name="name">Dirección General</field>
+        <field name="category_id" ref="category_crm_nuevo"/>
+        <field name="implied_ids" eval="[ ( 4, ref('groups_crm_nuevo_director') ),( 4, ref('groups_crm_nuevo_subdirector')),( 4, ref('groups_crm_nuevo_ejecutivo') ),( 4, ref('groups_crm_nuevo_director_multi') ),(4, ref('sales_team.group_sale_manager'))]"/>
+    </record>
+</odoo>
